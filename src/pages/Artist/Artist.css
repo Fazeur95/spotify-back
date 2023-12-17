@@ -1,0 +1,10 @@
+:root {
+  .ant-table-cell {
+    vertical-align: middle;
+  }
+}
+
+.button {
+  display: block;
+  margin: 1rem 0 1rem auto;
+}

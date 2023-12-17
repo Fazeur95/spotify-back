@@ -1,0 +1,19 @@
+.error-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #121212;
+  color: rgb(28, 198, 45);
+  font-family: 'Circular Std', sans-serif;
+}
+
+.error-code {
+  font-size: 10rem;
+  margin: 0;
+}
+
+.error-message {
+  font-size: 1.5rem;
+}
