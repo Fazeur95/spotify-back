@@ -21,7 +21,9 @@ export const useArtists = () => {
 
   const fetchArtists = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:6868/api/artist');
+      const response = await fetch(
+        'https://spotify-api-43ur.onrender.com/api/artist'
+      );
       const data = await response.json();
       setArtistList(data);
     } catch (error) {
@@ -39,7 +41,7 @@ export const useArtists = () => {
     formData.append('image', data.image, blob);
 
     try {
-      await fetch('http://localhost:6868/api/artist', {
+      await fetch('https://spotify-api-43ur.onrender.com/api/artist', {
         method: 'POST',
         body: formData,
       });
@@ -56,7 +58,7 @@ export const useArtists = () => {
 
   const deleteArtist = async id => {
     try {
-      await fetch(`http://localhost:6868/api/artist/${id}`, {
+      await fetch(`https://spotify-api-43ur.onrender.com/api/artist/${id}`, {
         method: 'DELETE',
       });
       fetchArtists();

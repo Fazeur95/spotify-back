@@ -11,7 +11,9 @@ const AlbumEdit = () => {
 
   const fetchAlbum = async id => {
     try {
-      const response = await fetch(`http://localhost:6868/api/album/${id}`);
+      const response = await fetch(
+        `https://spotify-api-43ur.onrender.com/api/album/${id}`
+      );
       const data = await response.json();
       setAlbum(data);
     } catch (error) {

@@ -9,7 +9,7 @@ export const useTrack = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:6868/api/track?populate=true`
+        `https://spotify-api-43ur.onrender.com/api/track?populate=true`
       );
       const data = await response.json();
       setTrackList(data);
@@ -23,9 +23,12 @@ export const useTrack = () => {
   const deleteTrack = async id => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:6868/api/track/${id}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `https://spotify-api-43ur.onrender.com/api/track/${id}`,
+        {
+          method: 'DELETE',
+        }
+      );
       if (response.ok) {
         message.success('Morceau supprimé avec succès');
         fetchTracks();

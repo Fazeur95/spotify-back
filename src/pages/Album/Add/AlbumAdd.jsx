@@ -17,10 +17,13 @@ const AlbumAdd = ({ fetchAlbum }) => {
   const { handleSubmit } = methods;
 
   const createAlbumRequest = async body => {
-    const response = await fetch('http://localhost:6868/api/album', {
-      method: 'POST',
-      body,
-    });
+    const response = await fetch(
+      'https://spotify-api-43ur.onrender.com/api/album',
+      {
+        method: 'POST',
+        body,
+      }
+    );
 
     return response.json();
   };

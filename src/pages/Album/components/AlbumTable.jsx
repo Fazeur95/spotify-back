@@ -95,16 +95,19 @@ const AlbumTable = ({ tracks, albumId, artist }) => {
   }, [tracks]);
 
   const updateOrderRequest = async data => {
-    const response = await fetch('http://localhost:6868/api/track/order', {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        tracks: data,
-        albumId,
-      }),
-    });
+    const response = await fetch(
+      'https://spotify-api-43ur.onrender.com/api/track/order',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({
+          tracks: data,
+          albumId,
+        }),
+      }
+    );
 
     return response.json();
   };

@@ -39,7 +39,7 @@ const ArtistPage = () => {
       width: '10%',
       render: (text, record) => (
         <img
-          // src={record.imageUrl}
+          src={record.imageUrl}
           alt={record.name}
           loading='lazy'
           style={{ width: '50px', height: '50px', borderRadius: '50%' }}

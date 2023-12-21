@@ -11,7 +11,9 @@ const AlbumAddForm = () => {
 
   useEffect(() => {
     const fetchArtist = async () => {
-      const response = await fetch('http://localhost:6868/api/artist');
+      const response = await fetch(
+        'https://spotify-api-43ur.onrender.com/api/artist'
+      );
       const data = await response.json();
       setArtistList(data);
     };

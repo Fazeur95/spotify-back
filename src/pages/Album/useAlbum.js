@@ -9,7 +9,7 @@ export const useAlbum = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:6868/api/album?populate=true`
+        `https://spotify-api-43ur.onrender.com/api/album?populate=true`
       );
       const data = await response.json();
       setAlbumList(data);
@@ -22,9 +22,12 @@ export const useAlbum = () => {
 
   const deleteAlbum = async id => {
     try {
-      const response = await fetch(`http://localhost:6868/api/album/${id}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `https://spotify-api-43ur.onrender.com/api/album/${id}`,
+        {
+          method: 'DELETE',
+        }
+      );
       if (response.ok) {
         message.success('Album supprimé avec succès');
         fetchAlbum();

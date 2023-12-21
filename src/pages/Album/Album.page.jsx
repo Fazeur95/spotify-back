@@ -17,7 +17,7 @@ const AlbumPage = () => {
         width: '10%',
         render: (text, record) => (
           <img
-            // src={record.imageUrl}
+            src={record.imageUrl}
             alt={record.name}
             style={{ width: '50px', height: '50px', borderRadius: '10%' }}
           />

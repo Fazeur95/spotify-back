@@ -76,7 +76,7 @@ export const useUpload = () => {
 
   const fetchArtist = async () => {
     const response = await fetch(
-      'http://localhost:6868/api/artist?populate=true'
+      'https://spotify-api-43ur.onrender.com/api/artist?populate=true'
     );
     const data = await response.json();
     setArtistList(data);
@@ -91,10 +91,13 @@ export const useUpload = () => {
     formData.append('track', body.track);
     formData.append('order', body.order);
 
-    const response = await fetch('http://localhost:6868/api/track', {
-      method: 'POST',
-      body: formData,
-    });
+    const response = await fetch(
+      'https://spotify-api-43ur.onrender.com/api/track',
+      {
+        method: 'POST',
+        body: formData,
+      }
+    );
 
     const data = await response.json();
 

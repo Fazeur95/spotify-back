@@ -10,7 +10,9 @@ const EditArtist = () => {
 
   const fetchArtist = async id => {
     try {
-      const response = await fetch(`http://localhost:6868/api/artist/${id}`);
+      const response = await fetch(
+        `https://spotify-api-43ur.onrender.com/api/artist/${id}`
+      );
       const data = await response.json();
       setArtist(data);
     } catch (error) {
