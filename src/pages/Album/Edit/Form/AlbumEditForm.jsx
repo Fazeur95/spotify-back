@@ -73,6 +73,7 @@ const AlbumEditForm = ({ album }) => {
             <Upload
               {...field}
               fileList={field.value ? [field.value] : []}
+              accept='image/*'
               beforeUpload={file => {
                 if (file.type === 'image/jpeg') {
                   return true;
