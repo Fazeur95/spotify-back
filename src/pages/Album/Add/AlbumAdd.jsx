@@ -3,6 +3,7 @@ import { Button, Modal, message } from 'antd';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import AlbumAddForm from './Form/AlbumAddForm';
+import './AlbumAdd.css';
 
 const AlbumAdd = ({ fetchAlbum }) => {
   const [open, setOpen] = useState(false);
@@ -47,7 +48,7 @@ const AlbumAdd = ({ fetchAlbum }) => {
 
   return (
     <>
-      <Button type='primary' onClick={handleOpen}>
+      <Button type='primary' onClick={handleOpen} className='button'>
         Ajouter un album
       </Button>{' '}
       <Modal

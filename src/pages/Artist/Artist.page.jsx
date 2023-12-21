@@ -1,11 +1,11 @@
 import {
   Button,
+  Card,
   Flex,
   Form,
   Input,
   Modal,
   Popconfirm,
-  Popover,
   Table,
   Upload,
   message,
@@ -16,22 +16,7 @@ import { Controller } from 'react-hook-form';
 import { useArtists } from './Artist.hook';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-
-const PopoverRemove = ({ handleRemove }) => {
-  return (
-    <Popover
-      content={
-        <Button type='primary' onClick={handleRemove}>
-          Supprimer
-        </Button>
-      }
-      title='Supprimer'
-      trigger='click'
-    >
-      <Button type='primary'>Supprimer</Button>
-    </Popover>
-  );
-};
+import PageTitle from '../../components/PageTitle';
 
 const ArtistPage = () => {
   const {
@@ -56,6 +41,7 @@ const ArtistPage = () => {
         <img
           // src={record.imageUrl}
           alt={record.name}
+          loading='lazy'
           style={{ width: '50px', height: '50px', borderRadius: '50%' }}
         />
       ),
@@ -80,7 +66,6 @@ const ArtistPage = () => {
           <Button
             onClick={e => {
               e.preventDefault();
-              console.log(record);
             }}
             icon={<EditOutlined />}
           />
@@ -101,8 +86,8 @@ const ArtistPage = () => {
   ];
 
   return (
-    <>
-      <h2>Gestion des artists</h2>
+    <Card>
+      <PageTitle>Liste des artistes</PageTitle>
       <Button type='primary' className='button' onClick={handleOpenModal}>
         Ajouter un artiste
       </Button>
@@ -175,7 +160,7 @@ const ArtistPage = () => {
         </Form>
       </Modal>
       <Table columns={columns} dataSource={artistList} size='small' />
-    </>
+    </Card>
   );
 };
 

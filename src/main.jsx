@@ -11,6 +11,7 @@ import './index.css';
 import AlbumPage from './pages/Album/Album.page.jsx';
 import AlbumEdit from './pages/Album/Edit/AlbumEdit.jsx';
 import EditArtist from './pages/Artist/Edit/EditArtist.jsx';
+import TrackPage from './pages/Track/TrackPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/track',
-        element: <div>Track</div>,
+        element: <TrackPage />,
       },
       {
         path: '*',

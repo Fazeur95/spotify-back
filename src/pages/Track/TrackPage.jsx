@@ -1,42 +1,35 @@
 import { useMemo } from 'react';
-import { useAlbum } from './useAlbum';
 import { Button, Card, Flex, Table } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import AlbumAdd from './Add/AlbumAdd';
+import { useTrack } from './useTrack';
+
+import styles from './TrackPage.module.css';
 import PageTitle from '../../components/PageTitle';
 
-const AlbumPage = () => {
-  const { albumList, fetchAlbum, loading, deleteAlbum } = useAlbum();
+const TrackPage = () => {
+  const { trackList, loading, fetchTracks, deleteTrack } = useTrack();
 
   const columns = useMemo(
     () => [
       {
-        title: 'Image',
-        dataIndex: 'imageUrl',
-        key: 'imageUrl',
-        width: '10%',
-        render: (text, record) => (
-          <img
-            // src={record.imageUrl}
-            alt={record.name}
-            style={{ width: '50px', height: '50px', borderRadius: '10%' }}
-          />
-        ),
-      },
-      {
         title: 'Nom',
         dataIndex: 'name',
         key: 'name',
+      },
+      {
+        title: 'Album',
+        dataIndex: 'album',
+        key: 'album',
         render: (text, record) => (
           <a style={{ verticalAlign: 'middle' }} href={`/album/${record._id}`}>
-            {record.name}
+            {record?.album?.name}
           </a>
         ),
       },
       {
         title: 'Artiste',
-        dataIndex: 'artist',
-        key: 'artist',
+        dataIndex: 'track.artist.name',
+        key: 'track.artist.name',
         render: (text, record) => (
           <div style={{ verticalAlign: 'middle' }}>{record?.artist?.name}</div>
         ),
@@ -57,7 +50,7 @@ const AlbumPage = () => {
               danger
               onClick={e => {
                 e.preventDefault();
-                deleteAlbum(record._id);
+                deleteTrack(record._id);
               }}
               icon={<DeleteOutlined />}
             />
@@ -65,17 +58,16 @@ const AlbumPage = () => {
         ),
       },
     ],
-    [deleteAlbum]
+    [deleteTrack]
   );
 
   return (
     <Card>
-      <PageTitle>Liste des albums</PageTitle>
-      <AlbumAdd fetchAlbum={fetchAlbum} />
+      <PageTitle>Liste des morceaux</PageTitle>
       <Table
         loading={loading}
         columns={columns}
-        dataSource={albumList}
+        dataSource={trackList}
         rowKey={'_id'}
         size='small'
         pagination={{
@@ -86,4 +78,4 @@ const AlbumPage = () => {
   );
 };
 
-export default AlbumPage;
+export default TrackPage;
