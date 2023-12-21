@@ -1,4 +1,3 @@
-// ArtistHooks.js
 import { message } from 'antd';
 import { useState, useEffect, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
@@ -20,20 +19,17 @@ export const useArtists = () => {
     setIsModalVisible(false);
   };
 
-  const fetchArtists = useCallback(() => {
-    fetch('http://localhost:6868/api/artist')
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        setArtistList(data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  const fetchArtists = useCallback(async () => {
+    try {
+      const response = await fetch('http://localhost:6868/api/artist');
+      const data = await response.json();
+      setArtistList(data);
+    } catch (error) {
+      message.error('Une erreur est survenue');
+    }
   }, []);
 
-  const addArtist = data => {
+  const addArtist = async data => {
     const formData = new FormData();
 
     //File to blob
@@ -42,47 +38,37 @@ export const useArtists = () => {
     formData.append('name', data.name);
     formData.append('image', data.image, blob);
 
-    fetch('http://localhost:6868/api/artist', {
-      method: 'POST',
-      body: formData,
-    })
-      .then(response => {
-        return response;
-      })
-      .then(() => {
-        fetchArtists();
-        handleCloseModal();
-      })
-      .catch(error => {
-        message.error('Une erreur est survenue');
-        console.log(error);
+    try {
+      await fetch('http://localhost:6868/api/artist', {
+        method: 'POST',
+        body: formData,
       });
+      fetchArtists();
+      handleCloseModal();
+    } catch (error) {
+      message.error('Une erreur est survenue');
+    }
   };
 
   const onSubmit = data => {
     addArtist(data);
   };
 
+  const deleteArtist = async id => {
+    try {
+      await fetch(`http://localhost:6868/api/artist/${id}`, {
+        method: 'DELETE',
+      });
+      fetchArtists();
+      message.success('Artiste supprimé avec succès');
+    } catch (error) {
+      message.error('Une erreur est survenue');
+    }
+  };
+
   useEffect(() => {
     fetchArtists();
   }, [fetchArtists]);
-
-  const deleteArtist = id => {
-    fetch(`http://localhost:6868/api/artist/${id}`, {
-      method: 'DELETE',
-    })
-      .then(response => {
-        return response;
-      })
-      .then(() => {
-        fetchArtists();
-        message.success('Artiste supprimé avec succès');
-      })
-      .catch(error => {
-        message.error('Une erreur est survenue');
-        console.log(error);
-      });
-  };
 
   return {
     artistList,

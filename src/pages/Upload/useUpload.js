@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { message } from 'antd';
 import * as mm from 'music-metadata-browser';
-import { set, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 export const useUpload = () => {
   const [loading, setLoading] = useState(false);
@@ -68,7 +68,7 @@ export const useUpload = () => {
     setValue('order', trackNumber);
   };
 
-  const customRequest = ({ file, onSuccess }) => {
+  const customRequest = ({ onSuccess }) => {
     setTimeout(() => {
       onSuccess('ok');
     }, 0);
@@ -127,7 +127,7 @@ export const useUpload = () => {
     const hide = message.loading('Ajout en cours ...', 0);
     setLoading(true);
     uploadTrackRequest(data)
-      .then(data => {
+      .then(() => {
         hide();
 
         message.success('Morceau créé avec succès');

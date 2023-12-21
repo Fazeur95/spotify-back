@@ -1,5 +1,5 @@
 import { Button, Form, Input, Select, Upload, message } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 const AlbumAddForm = () => {
@@ -18,7 +18,7 @@ const AlbumAddForm = () => {
     fetchArtist();
   }, []);
 
-  const customRequest = ({ file, onSuccess }) => {
+  const customRequest = ({ onSuccess }) => {
     setTimeout(() => {
       onSuccess('ok');
     }, 0);

@@ -32,7 +32,6 @@ const UploadFile = () => {
     watchArtist,
     audioRef,
     control,
-    checkIfOrderExists,
   } = useUpload();
 
   return (
@@ -89,14 +88,22 @@ const UploadFile = () => {
                 name='name'
                 control={control}
                 defaultValue=''
-                render={({ field }) => (
+                rules={{
+                  required: 'Veuillez entrer le nom du morceau',
+                }}
+                render={({ field, fieldState: { error } }) => (
                   <Form.Item
                     label='Nom du morceau'
                     style={{
                       width: '60%',
                     }}
+                    help={error?.message}
                   >
-                    <Input {...field} placeholder='Nom du morceau' />
+                    <Input
+                      {...field}
+                      placeholder='Nom du morceau'
+                      status={error ? 'error' : undefined}
+                    />
                   </Form.Item>
                 )}
               />
@@ -104,9 +111,22 @@ const UploadFile = () => {
                 name='order'
                 control={control}
                 defaultValue={0}
-                render={({ field }) => (
-                  <Form.Item label='Ordre du morceau'>
-                    <InputNumber {...field} placeholder='Ordre du morceau' />
+                rules={{
+                  required: "Veuillez entrer l'ordre du morceau",
+                }}
+                render={({ field, fieldState: { error } }) => (
+                  <Form.Item
+                    label='Ordre du morceau'
+                    style={{
+                      width: '40%',
+                    }}
+                    help={error?.message}
+                  >
+                    <InputNumber
+                      {...field}
+                      placeholder='Ordre du morceau'
+                      status={error ? 'error' : undefined}
+                    />
                   </Form.Item>
                 )}
               />
@@ -115,11 +135,15 @@ const UploadFile = () => {
             <Controller
               name='artist'
               control={control}
+              rules={{
+                required: 'Veuillez choisir un artiste',
+              }}
               defaultValue=''
-              render={({ field }) => (
-                <Form.Item label='Artiste'>
+              render={({ field, fieldState: { error } }) => (
+                <Form.Item label='Artiste' help={error?.message}>
                   <Select
                     {...field}
+                    status={error ? 'error' : undefined}
                     placeholder='Artiste'
                     style={{
                       width: '100%',
@@ -140,13 +164,15 @@ const UploadFile = () => {
                 name='album'
                 control={control}
                 defaultValue=''
-                render={({ field }) => (
-                  <Form.Item label="Album de l'artiste">
+                rules={{ required: 'Veuillez choisir un album' }}
+                render={({ field, fieldState: { error } }) => (
+                  <Form.Item label="Album de l'artiste" help={error?.message}>
                     <Select
                       {...field}
                       style={{
                         width: '100%',
                       }}
+                      status={error ? 'error' : undefined}
                       placeholder='Album'
                     >
                       {/* Replace this with your actual list of albums for the selected artist */}
@@ -164,6 +190,9 @@ const UploadFile = () => {
               name='track'
               control={control}
               defaultValue=''
+              rules={{
+                required: 'Veuillez choisir un fichier audio',
+              }}
               render={({ field }) => (
                 <Upload.Dragger
                   {...field}
@@ -183,10 +212,10 @@ const UploadFile = () => {
                     <InboxOutlined />
                   </p>
                   <p className='ant-upload-text'>
-                    Click or drag file to this area to upload
+                    Cliquez ou déposez le fichier audio ici
                   </p>
                   <p className='ant-upload-hint'>
-                    Support for a single or bulk upload.
+                    Supporte uniquement les fichiers mp3.
                   </p>
                 </Upload.Dragger>
               )}
@@ -201,12 +230,13 @@ const UploadFile = () => {
             <Button
               loading={loading}
               type='primary'
+              block
               onClick={handleSubmit(onSubmit)}
               style={{
                 marginTop: '20px',
               }}
             >
-              Envoyer
+              Enregistrer le morceau
             </Button>
           </Form>
         )}

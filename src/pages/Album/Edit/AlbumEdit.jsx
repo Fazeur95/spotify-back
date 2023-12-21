@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { useParams } from 'react-router';
 import AlbumEditForm from './Form/AlbumEditForm';
-import { Card, Table } from 'antd';
+import { Card, message } from 'antd';
 import AlbumTable from '../components/AlbumTable';
 
 const AlbumEdit = () => {
@@ -15,7 +15,7 @@ const AlbumEdit = () => {
       const data = await response.json();
       setAlbum(data);
     } catch (error) {
-      console.log(error);
+      message.error("Erreur lors de la récupération de l'album");
     }
   };
 
@@ -27,11 +27,14 @@ const AlbumEdit = () => {
     return <div>Loading...</div>;
   }
 
+  const MemoizedAlbumEditForm = memo(AlbumEditForm);
+  const MemoizedAlbumTable = memo(AlbumTable);
+
   return (
     <Card>
       <h1>Edition d&apos;un album</h1>
-      <AlbumEditForm album={album} />
-      <AlbumTable
+      <MemoizedAlbumEditForm album={album} />
+      <MemoizedAlbumTable
         tracks={album.tracks}
         albumId={album._id}
         artist={album?.artist}

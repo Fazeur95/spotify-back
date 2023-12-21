@@ -1,5 +1,5 @@
-import { Card, Table } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { Card, Table, message } from 'antd';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ const EditArtist = () => {
       const data = await response.json();
       setArtist(data);
     } catch (error) {
-      console.log(error);
+      message.error("Erreur lors de la récupération de l'artiste");
     }
   };
 

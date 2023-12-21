@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Button, Modal, message } from 'antd';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import AlbumAddForm from './Form/AlbumAddForm';
 
@@ -35,14 +35,12 @@ const AlbumAdd = ({ fetchAlbum }) => {
     formData.append('image', data.image, blob);
 
     createAlbumRequest(formData)
-      .then(data => {
-        console.log(data);
+      .then(() => {
         message.success('Album créé avec succès');
         fetchAlbum();
         handleClose();
       })
-      .catch(error => {
-        console.log(error);
+      .catch(() => {
         message.error("Erreur lors de la création de l'album");
       });
   };

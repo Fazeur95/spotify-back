@@ -1,9 +1,9 @@
 import { Button, Form, Input, Select, Upload, message } from 'antd';
-import React, { useEffect, useState } from 'react';
-import { Controller, useForm, useFormContext } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
 const AlbumEditForm = ({ album }) => {
-  const { control, watch, setValue } = useForm({
+  const { control, watch } = useForm({
     defaultValues: {
       name: album.name,
       artist: album.artist._id,
@@ -27,7 +27,7 @@ const AlbumEditForm = ({ album }) => {
     fetchArtist();
   }, []);
 
-  const customRequest = ({ file, onSuccess }) => {
+  const customRequest = ({ onSuccess }) => {
     setTimeout(() => {
       onSuccess('ok');
     }, 0);
