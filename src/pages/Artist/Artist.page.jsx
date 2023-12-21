@@ -1,5 +1,6 @@
 import {
   Button,
+  Flex,
   Form,
   Input,
   Modal,
@@ -13,6 +14,24 @@ import {
 import './Artist.css';
 import { Controller } from 'react-hook-form';
 import { useArtists } from './Artist.hook';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
+
+const PopoverRemove = ({ handleRemove }) => {
+  return (
+    <Popover
+      content={
+        <Button type='primary' onClick={handleRemove}>
+          Supprimer
+        </Button>
+      }
+      title='Supprimer'
+      trigger='click'
+    >
+      <Button type='primary'>Supprimer</Button>
+    </Popover>
+  );
+};
 
 const ArtistPage = () => {
   const {
@@ -46,7 +65,9 @@ const ArtistPage = () => {
       dataIndex: 'name',
       key: 'name',
       render: (text, record) => (
-        <a style={{ verticalAlign: 'middle' }}>{record.name}</a>
+        <Link style={{ verticalAlign: 'middle' }} to={'/artist/' + record._id}>
+          {record.name}
+        </Link>
       ),
     },
     {
@@ -55,29 +76,26 @@ const ArtistPage = () => {
       key: 'action',
       width: '10%',
       render: (text, record) => (
-        <>
-          <a
+        <Flex gap={8}>
+          <Button
             onClick={e => {
               e.preventDefault();
               console.log(record);
             }}
-          >
-            Modifier
-          </a>
+            icon={<EditOutlined />}
+          />
 
-          <Button>
-            <Popconfirm
-              title='Êtes-vous sûr de vouloir supprimer cet artiste ?'
-              onConfirm={() => {
-                deleteArtist(record._id);
-              }}
-              okText='Oui'
-              cancelText='Non'
-            >
-              Supprimer
-            </Popconfirm>
-          </Button>
-        </>
+          <Popconfirm
+            title='Êtes-vous sûr de vouloir supprimer cet artiste ?'
+            onConfirm={() => {
+              deleteArtist(record._id);
+            }}
+            okText='Oui'
+            cancelText='Non'
+          >
+            <Button danger icon={<DeleteOutlined />} />
+          </Popconfirm>
+        </Flex>
       ),
     },
   ];

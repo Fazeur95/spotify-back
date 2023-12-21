@@ -31,18 +31,11 @@ const AlbumEdit = () => {
     <Card>
       <h1>Edition d&apos;un album</h1>
       <AlbumEditForm album={album} />
-      {/* <Table
-        dataSource={album.tracks}
-        rowKey='_id'
-        size='small'
-        columns={[
-          {
-            title: 'Titre',
-            dataIndex: 'name',
-          },
-        ]}
-      /> */}
-      <AlbumTable tracks={album.tracks} albumId={album._id} />
+      <AlbumTable
+        tracks={album.tracks}
+        albumId={album._id}
+        artist={album?.artist}
+      />
     </Card>
   );
 };

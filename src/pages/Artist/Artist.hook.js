@@ -76,6 +76,7 @@ export const useArtists = () => {
       })
       .then(() => {
         fetchArtists();
+        message.success('Artiste supprimé avec succès');
       })
       .catch(error => {
         message.error('Une erreur est survenue');

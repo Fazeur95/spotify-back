@@ -9,8 +9,8 @@ import { ConfigProvider, theme } from 'antd';
 import UploadPage from './pages/Upload/Upload.jsx';
 import './index.css';
 import AlbumPage from './pages/Album/Album.page.jsx';
-import EditAlbum from './pages/Artist/Edit/EditAlbum.jsx';
 import AlbumEdit from './pages/Album/Edit/AlbumEdit.jsx';
+import EditArtist from './pages/Artist/Edit/EditArtist.jsx';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: '/artist',
         element: <ArtistPage />,
+      },
+      {
+        path: '/artist/:id',
+        element: <EditArtist />,
       },
       {
         path: '/album',

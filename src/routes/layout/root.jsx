@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout, Menu } from 'antd';
 import { Outlet, useNavigate } from 'react-router';
 import './root.css';
@@ -10,6 +10,23 @@ function LayoutRoot() {
   const onClick = e => {
     console.log('click ', e);
   };
+
+  const [selectedKeys, setSelectedKeys] = useState([]);
+
+  useEffect(() => {
+    const path = window.location.pathname;
+    const pathMap = {
+      '/$': ['1'],
+      '/artist': ['2'],
+      '/album': ['3'],
+      '/track': ['4'],
+    };
+
+    const matchedKey = Object.keys(pathMap).find(key =>
+      path.match(new RegExp(key))
+    );
+    setSelectedKeys(matchedKey ? pathMap[matchedKey] : []);
+  }, [window.location.pathname]);
 
   const navigate = useNavigate();
 
@@ -23,7 +40,7 @@ function LayoutRoot() {
         </div>
         <div className='divider'></div>
         <Menu
-          defaultSelectedKeys={['1']}
+          selectedKeys={selectedKeys}
           onClick={onClick}
           mode='inline'
           style={{

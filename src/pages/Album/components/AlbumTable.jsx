@@ -8,23 +8,10 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Table } from 'antd';
-const columns = [
-  {
-    key: 'sort',
-    width: 30,
-  },
-  {
-    title: 'Order',
-    dataIndex: 'order',
-    width: 30,
-  },
-  {
-    title: 'Name',
-    dataIndex: 'name',
-  },
-];
+import { Link } from 'react-router-dom';
+
 const Row = ({ children, ...props }) => {
   const {
     attributes,
@@ -75,8 +62,33 @@ const Row = ({ children, ...props }) => {
     </tr>
   );
 };
-const AlbumTable = ({ tracks, albumId }) => {
+const AlbumTable = ({ tracks, albumId, artist }) => {
   const [dataSource, setDataSource] = useState([]);
+
+  const columns = useMemo(
+    () => [
+      {
+        key: 'sort',
+        width: 30,
+      },
+      {
+        title: 'Order',
+        dataIndex: 'order',
+        width: 30,
+      },
+      {
+        title: 'Name',
+        dataIndex: 'name',
+      },
+      {
+        title: 'Artist',
+        render() {
+          return <Link to={`/artist/${artist._id}`}>{artist.name}</Link>;
+        },
+      },
+    ],
+    [artist]
+  );
 
   useEffect(() => {
     setDataSource(tracks.map((track, index) => ({ ...track, key: index })));

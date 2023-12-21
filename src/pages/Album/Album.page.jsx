@@ -4,28 +4,9 @@ import { Button, Card, Table, message } from 'antd';
 import AlbumAdd from './Add/AlbumAdd';
 
 const AlbumPage = () => {
-  const { albumList, error, fetchAlbum, loading } = useAlbum();
+  const { albumList, error, fetchAlbum, loading, deleteAlbum } = useAlbum();
 
   console.log(albumList);
-
-  const deleteAlbum = async id => {
-    const response = await fetch(`http://localhost:6868/api/album/${id}`, {
-      method: 'DELETE',
-    })
-      .then(response => {
-        if (response.ok) {
-          message.success('Album supprimé avec succès');
-          fetchAlbum();
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-
-  if (loading) return <div>Loading...</div>;
-
-  if (error) return <div>Error</div>;
 
   const columns = [
     {
@@ -65,22 +46,25 @@ const AlbumPage = () => {
       width: '10%',
       render: (text, record) => (
         <>
-          <a
+          <Button
+            type='default'
             onClick={e => {
               e.preventDefault();
               console.log(record);
             }}
           >
             Modifier
-          </a>
-          <a
+          </Button>
+          <Button
+            danger
+            type='link'
             onClick={e => {
               e.preventDefault();
               deleteAlbum(record._id);
             }}
           >
             Supprimer
-          </a>
+          </Button>
         </>
       ),
     },

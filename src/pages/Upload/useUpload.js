@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { message } from 'antd';
 import * as mm from 'music-metadata-browser';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 
 export const useUpload = () => {
   const [loading, setLoading] = useState(false);
@@ -22,6 +22,14 @@ export const useUpload = () => {
     return false;
   };
 
+  const checkIfOrderExists = (artist, order) => {
+    const albumToCheck = artist.albums.find(album => album._id === album);
+    const trackToCheck = albumToCheck.tracks.find(
+      track => track.order === order
+    );
+    return trackToCheck ? true : false;
+  };
+
   const getArtistByName = name => {
     const artist = artistList.find(
       artist => artist.name.toLowerCase().trim() === name.toLowerCase().trim()
@@ -37,24 +45,27 @@ export const useUpload = () => {
   };
 
   const handleChangeFile = async file => {
-    const metadata = await mm.parseBlob(file.file);
+    const metadata = await mm.parseBlob(file);
     const title = metadata.common.title;
     const artistTag = metadata.common.albumartist;
     const albumName = metadata.common.album;
+    const trackNumber = metadata.common.track.no;
 
     const artist = getArtistByName(artistTag);
 
     const albumId = getAlbumByName(artist, albumName);
 
-    const url = URL.createObjectURL(file.file);
+    const url = URL.createObjectURL(file);
     setAudioUrl(url);
+    setFileList([file]);
 
     // Assuming you're using react-hook-form
     setValue('artist', artist._id);
 
     setValue('name', title);
     setValue('album', albumId);
-    setValue('track', file.file);
+    setValue('track', file);
+    setValue('order', trackNumber);
   };
 
   const customRequest = ({ file, onSuccess }) => {
@@ -160,5 +171,6 @@ export const useUpload = () => {
     control,
     handleSubmit,
     watchArtist,
+    checkIfOrderExists,
   };
 };

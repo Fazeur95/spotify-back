@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import { useEffect, useState } from 'react';
 
 export const useAlbum = () => {
@@ -24,9 +25,24 @@ export const useAlbum = () => {
     }
   };
 
+  const deleteAlbum = async id => {
+    await fetch(`http://localhost:6868/api/album/${id}`, {
+      method: 'DELETE',
+    })
+      .then(response => {
+        if (response.ok) {
+          message.success('Album supprimé avec succès');
+          fetchAlbum();
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   useEffect(() => {
     fetchAlbum();
   }, []);
 
-  return { albumList, loading, error, fetchAlbum };
+  return { albumList, loading, error, fetchAlbum, deleteAlbum };
 };
