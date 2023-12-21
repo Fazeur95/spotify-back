@@ -3,11 +3,10 @@ import { Button, Card, Flex, Table } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { useTrack } from './useTrack';
 
-import styles from './TrackPage.module.css';
 import PageTitle from '../../components/PageTitle';
 
 const TrackPage = () => {
-  const { trackList, loading, fetchTracks, deleteTrack } = useTrack();
+  const { trackList, loading, deleteTrack } = useTrack();
 
   const columns = useMemo(
     () => [

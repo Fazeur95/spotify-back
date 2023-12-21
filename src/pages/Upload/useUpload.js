@@ -89,6 +89,7 @@ export const useUpload = () => {
     formData.append('artist', body.artist);
     formData.append('album', body.album);
     formData.append('track', body.track);
+    formData.append('order', body.order);
 
     const response = await fetch('http://localhost:6868/api/track', {
       method: 'POST',
